@@ -3,3 +3,6 @@ fastapi>=0.100.0,<0.101.0
 pydantic>=2.5.0,<2.10.0
 uvicorn>=0.15.0,<0.16.0
 langchain-openai==0.3
+langchain-community==0.3.14
+pypdf==5.1.0
+cryptography>=3.1
