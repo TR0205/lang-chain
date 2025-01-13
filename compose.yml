@@ -9,3 +9,5 @@ services:
       - ./app:/app
     environment:
       - PYTHONUNBUFFERED=1
+    env_file:
+      - .env

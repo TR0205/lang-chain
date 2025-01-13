@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from openai import OpenAI
 
@@ -6,25 +7,15 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     client = OpenAI()
+    client.api_key = os.environ["OPENAI_API_KEY"]
+
     completion = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-3.5-turbo",
         store=True,
         messages=[
-            {"role": "user", "content": "write a haiku about ai"}
+            {"role": "user", "content": "こんにちは。今日の日本の天気は？"}
         ]
     )
     print(completion.choices[0].message)
-    # return {"Hello": "Worldaa"}
 
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: str = None):
-#     return {"item_id": item_id, "q": q}
-
-# @app.put("/items/{item_id}")
-# def update_item(item_id: int, item: Item):
-#     return {"item_name": item.name, "item_id": item_id}
-
-# @app.delete("/items/{item_id}")
-# def delete_item(item_id):
-#     return {"delete item"}
+    return completion.choices[0].message
