@@ -1,54 +1,53 @@
-from langchain import hub
-from langchain_community.document_loaders import PyPDFLoader
 from langchain_openai import ChatOpenAI
-from langchain_openai import OpenAIEmbeddings
-from langchain_core.documents import Document
-from langchain_core.tools import tool
-from langchain_core.vectorstores import InMemoryVectorStore
-from langchain_core.messages import SystemMessage
-from langgraph.prebuilt import ToolNode
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langgraph.graph import START, END, StateGraph, MessagesState
-from langchain_core.messages import HumanMessage
+from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.graph import START, MessagesState, StateGraph
+from langgraph.store.memory import InMemoryStore
+from typing import Annotated
+from typing_extensions import TypedDict
+from operator import add
+import pprint
+import json
+import uuid
 
-llm = ChatOpenAI(model="gpt-3.5-turbo")
+in_memory_store = InMemoryStore()
 
-# Define a new graph
-workflow = StateGraph(state_schema=MessagesState)
+user_id = "1"
+namespace_for_memory = (user_id, "memories")
 
+memory_id = str(uuid.uuid4())
+memory = {"food_preference" : "私はピザが好きです。"}
+in_memory_store.put(namespace_for_memory, memory_id, memory)
 
-# Define the function that calls the model
-def call_model(state: MessagesState):
-    response = llm.invoke(state["messages"])
-    # Update message history with response:
-    return {"messages": response}
+memories = in_memory_store.search(namespace_for_memory)
+print(json.dumps(memories[-1].dict(), indent=4))
 
+# class State(TypedDict):
+#     foo: int
+#     bar: Annotated[list[str], add]
 
-# Define the (single) node in the graph
-workflow.add_edge(START, "model")
-workflow.add_node("model", call_model)
+# def node_a(state: State):
+#     return {"foo": "１回目です", "bar": ["１回目です"]}
 
-# Add memory
-memory = MemorySaver()
-app = workflow.compile(checkpointer=memory)
+# def node_b(state: State):
+#     return {"foo": "２回目です", "bar": ["２回目です"]}
 
-# スレッドIDを指定
-config = {"configurable": {"thread_id": "abc123"}}
+# workflow = StateGraph(State)
+# workflow.add_node(node_a)
+# workflow.add_node(node_b)
+# workflow.add_edge(START, "node_a")
+# workflow.add_edge("node_a", "node_b")
+# workflow.add_edge("node_b", END)
 
-query = "Hi! I'm Bob."
+# checkpointer = MemorySaver()
+# graph = workflow.compile(checkpointer=checkpointer)
 
-input_messages = [HumanMessage(query)]
-print(f"input_messages: {input_messages}")
-output = app.invoke({"messages": input_messages}, config)
-# print(output)
-output["messages"][-1].pretty_print()
+# config = {"configurable": {"thread_id": "1"}}
+# graph.get_state(config)
 
-query = "What's my name?"
+# graph.invoke({"foo": ""}, config)
 
-input_messages = [HumanMessage(query)]
-print(f"input_messages: {input_messages}")
-output = app.invoke({"messages": input_messages}, config)
-# print(output)
-output["messages"][-1].pretty_print()
+# 保持している最後のstateをjson形式で出力
+# print(json.dumps(graph.get_state(config), indent=4))
+
+# stateの履歴をjson形式で出力(history.txt)
+# print(json.dumps(list(graph.get_state_history(config)), indent=4, ensure_ascii=False))

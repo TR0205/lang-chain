@@ -1,0 +1,195 @@
+[
+    [
+        {
+            "foo": "２回目です",
+            "bar": [
+                "１回目です",
+                "２回目です"
+            ]
+        },
+        [],
+        {
+            "configurable": {
+                "thread_id": "1",
+                "checkpoint_ns": "",
+                "checkpoint_id": "1efd3c9c-253b-6ee3-8002-8bd43c2d19fb"
+            }
+        },
+        {
+            "source": "loop",
+            "writes": {
+                "node_b": {
+                    "foo": "２回目です",
+                    "bar": [
+                        "２回目です"
+                    ]
+                }
+            },
+            "thread_id": "1",
+            "step": 2,
+            "parents": {}
+        },
+        "2025-01-16T05:21:37.393013+00:00",
+        {
+            "configurable": {
+                "thread_id": "1",
+                "checkpoint_ns": "",
+                "checkpoint_id": "1efd3c9c-253a-6f2a-8001-da570961c1c6"
+            }
+        },
+        []
+    ],
+    [
+        {
+            "foo": "１回目です",
+            "bar": [
+                "１回目です"
+            ]
+        },
+        [
+            "node_b"
+        ],
+        {
+            "configurable": {
+                "thread_id": "1",
+                "checkpoint_ns": "",
+                "checkpoint_id": "1efd3c9c-253a-6f2a-8001-da570961c1c6"
+            }
+        },
+        {
+            "source": "loop",
+            "writes": {
+                "node_a": {
+                    "foo": "１回目です",
+                    "bar": [
+                        "１回目です"
+                    ]
+                }
+            },
+            "thread_id": "1",
+            "step": 1,
+            "parents": {}
+        },
+        "2025-01-16T05:21:37.392608+00:00",
+        {
+            "configurable": {
+                "thread_id": "1",
+                "checkpoint_ns": "",
+                "checkpoint_id": "1efd3c9c-2539-6de3-8000-3f548a7ed07c"
+            }
+        },
+        [
+            [
+                "6a016e56-cb13-12e9-6a07-6c6aec9b5378",
+                "node_b",
+                [
+                    "__pregel_pull",
+                    "node_b"
+                ],
+                null,
+                [],
+                null,
+                {
+                    "foo": "２回目です",
+                    "bar": [
+                        "２回目です"
+                    ]
+                }
+            ]
+        ]
+    ],
+    [
+        {
+            "foo": "",
+            "bar": []
+        },
+        [
+            "node_a"
+        ],
+        {
+            "configurable": {
+                "thread_id": "1",
+                "checkpoint_ns": "",
+                "checkpoint_id": "1efd3c9c-2539-6de3-8000-3f548a7ed07c"
+            }
+        },
+        {
+            "source": "loop",
+            "writes": null,
+            "thread_id": "1",
+            "step": 0,
+            "parents": {}
+        },
+        "2025-01-16T05:21:37.392167+00:00",
+        {
+            "configurable": {
+                "thread_id": "1",
+                "checkpoint_ns": "",
+                "checkpoint_id": "1efd3c9c-2538-63b7-bfff-03b86298a254"
+            }
+        },
+        [
+            [
+                "ba6c0184-3e20-60b3-2e2c-1ec8d862647d",
+                "node_a",
+                [
+                    "__pregel_pull",
+                    "node_a"
+                ],
+                null,
+                [],
+                null,
+                {
+                    "foo": "１回目です",
+                    "bar": [
+                        "１回目です"
+                    ]
+                }
+            ]
+        ]
+    ],
+    [
+        {
+            "bar": []
+        },
+        [
+            "__start__"
+        ],
+        {
+            "configurable": {
+                "thread_id": "1",
+                "checkpoint_ns": "",
+                "checkpoint_id": "1efd3c9c-2538-63b7-bfff-03b86298a254"
+            }
+        },
+        {
+            "source": "input",
+            "writes": {
+                "__start__": {
+                    "foo": ""
+                }
+            },
+            "thread_id": "1",
+            "step": -1,
+            "parents": {}
+        },
+        "2025-01-16T05:21:37.391501+00:00",
+        null,
+        [
+            [
+                "e2deb395-435d-6616-8c3f-1c321db12756",
+                "__start__",
+                [
+                    "__pregel_pull",
+                    "__start__"
+                ],
+                null,
+                [],
+                null,
+                {
+                    "foo": ""
+                }
+            ]
+        ]
+    ]
+]
