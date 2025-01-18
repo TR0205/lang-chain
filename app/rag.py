@@ -11,8 +11,8 @@ from typing import Literal
 from typing_extensions import Annotated
 
 # 使用するLLMモデルを定義
-# llm = ChatOpenAI(model="gpt-3.5-turbo")
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(model="gpt-3.5-turbo")
+# llm = ChatOpenAI(model="gpt-4o-mini")
 
 # 会社の魅力を読み込んで文字列分割
 file_path_company = "jst.pdf"
